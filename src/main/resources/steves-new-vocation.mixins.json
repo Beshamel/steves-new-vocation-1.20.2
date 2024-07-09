@@ -3,7 +3,8 @@
 	"package": "becha.snv.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"ExampleMixin"
+		"ArgumentTypesInvoker",
+		"ArgumentTypesMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

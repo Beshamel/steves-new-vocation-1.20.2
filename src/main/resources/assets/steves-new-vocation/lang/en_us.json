@@ -1,0 +1,23 @@
+{
+  "msg.snv.vocation_info_name": "Your vocation is",
+  "msg.snv.no_vocation_yet": "You don't have a vocation yet, press V or type '/vocation menu' to open the vocation menu",
+  "msg.snv.vocation_start": "Your vocation is now : ",
+  "msg.snv.change_vocation_fail": "You cannot pick this vocation",
+  "msg.snv.reset_vocation_fail": "You already don't have a vocation",
+  "msg.snv.reset_vocation_success": "Your vocation was reset succesfully",
+
+  "vocation.snv.armorer": "Armorer",
+  "vocation.snv.butcher": "Butcher",
+  "vocation.snv.cartographer": "Cartographer",
+  "vocation.snv.cleric": "Cleric",
+  "vocation.snv.farmer": "Farmer",
+  "vocation.snv.fisherman": "Fisherman",
+  "vocation.snv.fletcher": "Fletcher",
+  "vocation.snv.leatherworker": "Leatherworker",
+  "vocation.snv.librarian": "Librarian",
+  "vocation.snv.mason": "Mason",
+  "vocation.snv.shepherd": "Shepherd",
+  "vocation.snv.toolsmith": "Toolsmith",
+  "vocation.snv.weaponsmith": "Weaponsmith",
+  "vocation.snv.nitwit": "Nitwit"
+}

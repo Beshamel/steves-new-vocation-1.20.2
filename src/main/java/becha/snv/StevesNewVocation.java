@@ -5,6 +5,10 @@ import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import becha.snv.command.ModCommands;
+import becha.snv.networking.ModMessages;
+import becha.snv.vocation.Vocations;
+
 public class StevesNewVocation implements ModInitializer {
 
 	public static final String MOD_NAME = "Steve's New Vocation";
@@ -13,9 +17,10 @@ public class StevesNewVocation implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		// This code runs as soon as Minecraft is in a mod-load-ready state.
-		// However, some things (like resources) may still be uninitialized.
-		// Proceed with mild caution.
+
+		Vocations.registerVocations();
+		ModCommands.registerCommands();
+		ModMessages.registerC2SPackets();
 
 		LOGGER.info("Hello Fabric world!");
 	}
