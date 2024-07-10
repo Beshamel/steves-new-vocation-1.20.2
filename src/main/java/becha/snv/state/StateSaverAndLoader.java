@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import becha.snv.StevesNewVocation;
-import becha.snv.vocation.Vocation;
 import becha.snv.vocation.Vocations;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;

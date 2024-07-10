@@ -1,6 +1,5 @@
 package becha.snv.command.argument;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
@@ -12,7 +11,6 @@ import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 
-import becha.snv.StevesNewVocation;
 import becha.snv.vocation.Vocation;
 import becha.snv.vocation.Vocations;
 import net.minecraft.command.CommandSource;

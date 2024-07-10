@@ -6,7 +6,6 @@ import java.util.HashMap;
 import com.google.common.collect.Maps;
 
 import becha.snv.StevesNewVocation;
-import becha.snv.vocation.Vocation.VocationBuilder;
 
 import net.minecraft.util.Identifier;
 
@@ -38,14 +37,6 @@ public class Vocations {
 
     public static void registerVocations() {
         StevesNewVocation.LOGGER.info("Loaded {} vocations", entries.size());
-    }
-
-    private static Vocation createAndRegisterVocation(String name, Vocation parent) {
-        if (parent == null)
-            return register(new Vocation(name));
-
-        Vocation vocation = new VocationBuilder(name).build();
-        return register(vocation);
     }
 
     public static Collection<Vocation> all() {
