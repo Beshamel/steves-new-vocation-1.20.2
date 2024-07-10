@@ -28,8 +28,10 @@ public class Vocation {
 
     private final String name;
     private final Identifier id;
-    private VocationDisplay display;
     private final Map<EntityAttribute, EntityAttributeModifier> attributeModifiers;
+
+    private Identifier displayIcon;
+    private Text displayName;
 
     public Vocation(String name) {
         this(name, 0, 0, false, Maps.newHashMap());
@@ -43,7 +45,8 @@ public class Vocation {
         this.id = new Identifier(StevesNewVocation.MOD_ID, name);
         String translationKey = createTranslationKey(name);
         this.attributeModifiers = attributeModifiers;
-        this.display = new VocationDisplay(this, iconId, translationKey, x, y, visible);
+        this.displayIcon = iconId;
+        this.displayName = Text.translatable(translationKey);
     }
 
     public void onApply(PlayerEntity player) {
@@ -54,7 +57,7 @@ public class Vocation {
 
     public void onStart(PlayerEntity player, Vocation oldVocation) {
         if (this != Vocations.NONE)
-            player.sendMessage(Text.translatable("msg.snv.vocation_start").append(display.getDisplayName()));
+            player.sendMessage(Text.translatable("msg.snv.vocation_start").append(displayName));
 
         onApply(player);
     }
@@ -85,8 +88,12 @@ public class Vocation {
         return id;
     }
 
-    public VocationDisplay getDisplay() {
-        return display;
+    public Identifier getIcon() {
+        return displayIcon;
+    }
+
+    public Text getDisplayName() {
+        return displayName;
     }
 
     public Map<EntityAttribute, EntityAttributeModifier> getAttributeModifiers() {
@@ -137,7 +144,7 @@ public class Vocation {
             player.sendMessage(Text.translatable("msg.snv.no_vocation_yet"));
         else
             player.sendMessage(Text.translatable("msg.snv.vocation_info_name").append(" : ")
-                    .append(vocation.getDisplay().getDisplayName()));
+                    .append(vocation.getDisplayName()));
     }
 
     public class VocationData {
