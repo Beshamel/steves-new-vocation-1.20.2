@@ -1,4 +1,7 @@
 {
+
+  "item.snv.shimmer_crystal": "Shimmer crystal",
+
   "msg.snv.vocation_info_name": "Your vocation is",
   "msg.snv.no_vocation_yet": "You don't have a vocation yet, press V or type '/vocation menu' to open the vocation menu",
   "msg.snv.vocation_start": "Your vocation is now : ",
