@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import becha.snv.command.ModCommands;
+import becha.snv.command.argument.ArgumentTypes;
 import becha.snv.networking.ModMessages;
 import becha.snv.vocation.Vocations;
 
@@ -21,6 +22,7 @@ public class StevesNewVocation implements ModInitializer {
 		Vocations.registerVocations();
 		ModCommands.registerCommands();
 		ModMessages.registerC2SPackets();
+		ArgumentTypes.registerArgumentTypes();
 
 		LOGGER.info("Hello Fabric world!");
 	}

@@ -8,51 +8,51 @@ import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 
+import becha.snv.StevesNewVocation;
 import becha.snv.vocation.Vocation;
 import becha.snv.vocation.Vocations;
-import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientCommandSource;
 import net.minecraft.command.CommandSource;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 
 public class VocationArgumentType implements ArgumentType<Vocation> {
 
+    public static final DynamicCommandExceptionType INVALID_VOCATION = new DynamicCommandExceptionType(
+            o -> Text.literal("Invalid vocation : " + o));
+
     @Override
     public Vocation parse(StringReader reader) throws CommandSyntaxException {
-        return Vocations.fromName(reader.readUnquotedString());
+        int argBeginning = reader.getCursor();
+        if (!reader.canRead()) {
+            reader.skip();
+        }
+        while (reader.canRead()
+                && (Character.isLetterOrDigit(reader.peek()) || reader.peek() == '-' || reader.peek() == '_')) {
+            reader.skip();
+        }
+        String vocationString = reader.getString().substring(argBeginning, reader.getCursor());
+        Vocation vocation = Vocations.fromName(vocationString);
+        if (vocation == null) {
+            reader.setCursor(argBeginning);
+            throw INVALID_VOCATION.createWithContext(reader, "Invalid vocation id");
+        } else {
+            return vocation;
+        }
     }
 
     @Override
     public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-        if (context.getSource() instanceof ServerCommandSource) {
-            if (((ServerCommandSource) context.getSource()).isExecutedByPlayer()) {
-                ServerPlayerEntity player = ((ServerCommandSource) context.getSource()).getPlayer();
-                return CommandSource.suggestMatching(validArguments(player), builder);
-            }
-        }
-        if (context.getSource() instanceof ClientCommandSource) {
-            FabricClientCommandSource source = (FabricClientCommandSource) context.getSource();
-            MinecraftClient client = source.getClient();
-            return CommandSource.suggestMatching(validArguments(client.player), builder);
-        }
-        if (context.getSource() instanceof CommandSource) {
-            return CommandSource.suggestMatching(Vocations.all().stream().map(vocation -> vocation.getName()), builder);
-        }
-
-        return Suggestions.empty();
+        return CommandSource.suggestMatching(validArguments(), builder);
     }
 
     public static VocationArgumentType vocation() {
         return new VocationArgumentType();
     }
 
-    private static Stream<String> validArguments(PlayerEntity player) {
+    private static Stream<String> validArguments() {
         return Vocations.all().stream().map(v -> v.getName());
     }
 }
